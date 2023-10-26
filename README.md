@@ -1,2 +1,2 @@
 # TaskTracker
-**Projeto do 4° bimestre para LP1 - 2023**
+**Projeto de um gerenciadores de tarefas para o 4° bimestre de LP1 - 2023**
