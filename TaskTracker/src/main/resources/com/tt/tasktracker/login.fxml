@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="405.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tt.tasktracker.controller.LoginController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ebc9a4" height="405.0" layoutY="-1.0" stroke="BLACK" strokeType="INSIDE" width="720.0" />
+      <Text fill="#661d1f" layoutX="290.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="antes de começar,">
+         <font>
+            <Font name="Corben" size="16.75" />
+         </font>
+      </Text>
+      <Text fill="#661d1f" layoutX="191.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="faça seu login!">
+         <font>
+            <Font name="System Bold" size="51.75" />
+         </font>
+      </Text>
+      <Text fill="#661d1f" layoutX="340.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuário:">
+         <font>
+            <Font name="Cloud-Light" size="12.0" />
+         </font></Text>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ebc9a4" height="30.0" layoutX="270.0" layoutY="155.0" stroke="#661d1f" strokeType="INSIDE" width="180.0" />
+      <TextField layoutX="270.0" layoutY="155.0" prefHeight="30.0" prefWidth="180.0" promptText="Digite seu usuário." />
+      <Text fill="#661d1f" layoutX="343.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Senha:">
+         <font>
+            <Font name="Cloud-Light" size="12.0" />
+         </font>
+      </Text>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ebc9a4" height="30.0" layoutX="270.0" layoutY="225.0" stroke="#661d1f" strokeType="INSIDE" width="180.0" />
+      <TextField layoutX="270.0" layoutY="225.0" prefHeight="30.0" prefWidth="180.0" promptText="Digite sua senha." />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#661d1f" height="31.0" layoutX="272.0" layoutY="280.0" stroke="#661d1f" strokeType="INSIDE" width="177.0" />
+      <Text fill="#ebc9a4" layoutX="339.0" layoutY="301.0" strokeType="OUTSIDE" strokeWidth="0.0" text="entrar">
+         <font>
+            <Font name="Corben Bold" size="15.0" />
+         </font>
+      </Text>
+      <Button fx:id="botaoEntrar" alignment="CENTER" layoutX="272.0" layoutY="280.0" mnemonicParsing="false" onMouseClicked="#clickEntrar" prefHeight="32.0" prefWidth="177.0" text="Entrar">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="botaoCadastrar" layoutX="290.0" layoutY="335.0" mnemonicParsing="false" onMouseClicked="#clickCadastrar" prefHeight="30.0" prefWidth="135.0" text="clique aqui!">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Text fill="#661d1f" layoutX="295.0" layoutY="331.0" strokeType="OUTSIDE" strokeWidth="0.0" text="não se inscreveu ainda?">
+         <font>
+            <Font name="Corben" size="12.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>
