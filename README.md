@@ -12,7 +12,8 @@ O projeto TaskTracker será um gerenciador de tarefas, onde o usuário terá fer
 1. Baixe o repositório do projeto. 
 2. Extraia o arquivo baixado.
 3. Com o auxílio de um programa compilador de Java, abra o projeto.
-4. Execute o projeto.
+4. Certifique-se de ter o JavaFX instalado no seu computador.
+5. Execute o projeto.
 
 ## Desenvolvedores
 **Turma 213-A** | **Equipe:** Arthur Augusto, Felipe Witkowsky, Henriquy Dias, Isabela Crestane
