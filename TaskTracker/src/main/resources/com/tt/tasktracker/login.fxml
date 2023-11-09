@@ -39,12 +39,12 @@
             <Font name="Corben Bold" size="15.0" />
          </font>
       </Text>
-      <Button fx:id="botaoEntrar" alignment="CENTER" layoutX="272.0" layoutY="280.0" mnemonicParsing="false" onMouseClicked="#clickEntrar" prefHeight="32.0" prefWidth="177.0" text="Entrar">
+      <Button fx:id="botaoEntrar" alignment="CENTER" layoutX="272.0" layoutY="280.0" mnemonicParsing="false" onAction="#clickEntrar" prefHeight="32.0" prefWidth="177.0" text="Entrar">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="botaoCadastrar" layoutX="290.0" layoutY="335.0" mnemonicParsing="false" onMouseClicked="#clickCadastrar" prefHeight="30.0" prefWidth="135.0" text="clique aqui!">
+      <Button fx:id="botaoCadastrar" layoutX="290.0" layoutY="335.0" mnemonicParsing="false" onAction="#clickCadastrar" prefHeight="30.0" prefWidth="135.0" text="clique aqui!">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

@@ -1,6 +1,6 @@
 package com.tt.tasktracker.controller;
 
-import com.tt.tasktracker.Application;
+import com.tt.tasktracker.MainApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -14,11 +14,11 @@ public class LoginController {
 
     @FXML
     void clickCadastrar(ActionEvent event) {
-        Application.mudarTela("cadastro");
+        MainApplication.mudarTela("Cadastro");
     }
 
     @FXML
-    void clickEntrar(ActionEvent event){
+    void clickEntrar(){
         System.out.println("Executar algoritmo de busca de usuário e senha");
     }
 }
