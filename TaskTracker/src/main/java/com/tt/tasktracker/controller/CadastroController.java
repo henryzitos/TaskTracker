@@ -2,12 +2,16 @@ package com.tt.tasktracker.controller;
 
 import com.tt.tasktracker.MainApplication;
 import com.tt.tasktracker.entities.Usuario;
+import com.tt.tasktracker.util.HibernateUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import java.io.IOException;
 
 public class CadastroController {
 
@@ -33,16 +37,29 @@ public class CadastroController {
     void confirmarCadastro(ActionEvent event) {
         String s = cadastroSenha.getText();
         if (s.equals(cadastroConfirmaSenha.getText())) {
-            Usuario u = new Usuario(cadastroUser.getText(), cadastroConfirmaSenha.getText(), cadastroEmail.getText());
-            System.out.println("Executar adição do usuário.");
+            Usuario u = new Usuario(cadastroUser.getText(), cadastroEmail.getText(), cadastroConfirmaSenha.getText());
+            System.out.println("Executar adição do usuário no banco.");
+            System.out.println(u);
+
+            try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+                Transaction transaction = session.beginTransaction();
+                session.persist(u);
+                transaction.commit();
+
+                System.out.println("Sucesso!");
+                MainApplication.mudarTela("Login", null);
+            } catch (Exception e) {
+                System.err.println(e);
+                System.err.println("Algo de errado não está certo. Método salvarEntidade");
+                System.err.println("Registro não bem sucedido, tente novamente");
+            }
         } else {
-            System.out.println("Exibir mensagem de erro; As senhas não estão iguais.");
+            System.err.println("As senhas não estão iguais.");
         }
     }
 
     @FXML
-    void voltaTelaLogin(ActionEvent event) {
-        MainApplication.mudarTela("Login");
+    void voltaTelaLogin(ActionEvent event) throws IOException {
+        MainApplication.mudarTela("Login", null);
     }
-
 }

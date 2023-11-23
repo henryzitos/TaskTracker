@@ -42,3 +42,4 @@
       <Button fx:id="botaoVoltaLogin" layoutX="280.0" layoutY="366.0" mnemonicParsing="false" onAction="#voltaTelaLogin" prefHeight="20.0" prefWidth="160.0" text="Voltar para tela de login" />
    </children>
 </AnchorPane>
+

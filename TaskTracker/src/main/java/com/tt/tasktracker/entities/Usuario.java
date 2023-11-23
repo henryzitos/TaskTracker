@@ -7,51 +7,60 @@ import java.util.List;
 
 @Entity
 @Table
-public class Usuario{
+public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; //Identificador / Chave primária
-    @Column
-    private String usuario; //Usuário / @ do usuário
-    @Column
-    private String senha; //Senha do usuário
-    @Column
-    private String email; //Email do usuário
-    @Column
-    private String nome; //Nome do usuário
-    @Column
-    private String sobrenome; //Sobrenome do usuário
-    @Column
-    private List<Tarefa> tarefas = new ArrayList<>(); //Lista de tarefas do usuário
-    @Column
-    private int quantidadeAcesso = 0;
+    private Long id;
 
-    public void adicionarTarefa(Tarefa t){
-        this.tarefas.add(t);
-    }
+    @Column
+    private String user;
 
-    public Usuario(String usuario, String senha, String email) {
-        this.usuario = usuario;
-        this.senha = senha;
+    @Column
+    private String email;
+
+    @Column
+    private String senha;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
+    private List<Tarefa> tarefas;
+
+    public Usuario(String user, String email, String senha) {
+        this.user = user;
         this.email = email;
-        this.nome = nome;
-        this.sobrenome = sobrenome;
-    }
-
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
         this.senha = senha;
+        this.tarefas = new ArrayList<>();
+    }
+
+    public Usuario() { }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "id=" + id +
+                ", user='" + user + '\'' +
+                ", email='" + email + '\'' +
+                ", senha='" + senha + '\'' +
+                '}';
+    }
+
+    public void addTarefa(Tarefa tarefa){
+        this.tarefas.add(tarefa);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 
     public String getEmail() {
@@ -62,20 +71,12 @@ public class Usuario{
         this.email = email;
     }
 
-    public String getNome() {
-        return nome;
+    public String getSenha() {
+        return senha;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getSobrenome() {
-        return sobrenome;
-    }
-
-    public void setSobrenome(String sobrenome) {
-        this.sobrenome = sobrenome;
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     public List<Tarefa> getTarefas() {
@@ -84,17 +85,5 @@ public class Usuario{
 
     public void setTarefas(List<Tarefa> tarefas) {
         this.tarefas = tarefas;
-    }
-
-    @Override
-    public String toString() {
-        return "Usuario{" +
-                "ID =" + id +
-                ", Usuário ='" + usuario + '\'' +
-                ", Senha ='" + senha + '\'' +
-                ", E-Mail ='" + email + '\'' +
-                ", Nome = '" + nome + '\'' +
-                ", Sobrenome ='" + sobrenome + '\'' +
-                '}';
     }
 }
