@@ -5,6 +5,8 @@ import com.tt.tasktracker.entities.Usuario;
 import com.tt.tasktracker.util.HibernateUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.*;
 import org.hibernate.Session;
@@ -13,6 +15,7 @@ import org.hibernate.query.Query;
 import java.io.IOException;
 
 public class LoginController {
+
     @FXML
     private Button botaoCadastrar;
 
@@ -20,14 +23,16 @@ public class LoginController {
     private Button botaoEntrar;
 
     @FXML
-    private PasswordField loginSenha;
-
-    @FXML
     private TextField loginUsuario;
 
     @FXML
+    private PasswordField loginSenha;
+
+    @FXML
     void clickCadastrar(ActionEvent event) throws IOException {
-        MainApplication.mudarTela("Cadastro", null);
+        loginUsuario.clear();
+        loginSenha.clear();
+        MainApplication.mudarTela("Cadastro");
     }
 
     @FXML
@@ -38,17 +43,27 @@ public class LoginController {
         String senha = loginSenha.getText();
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            // Consulta HQL para verificar se o nome de usuário existe
+            // Consulta HQL para verificar se o nome de usuário está no banco
             String hql = "FROM Usuario u WHERE u.user = :nome";
             Query<Usuario> query = session.createQuery(hql, Usuario.class);
             query.setParameter("nome", nome);
             Usuario usuario = query.uniqueResult();
 
-            if (usuario != null && usuario.getSenha().equals(senha)) {
-                System.out.println("Credenciais batem.");
-                MainApplication.mudarTela("Tarefas", usuario);
+            if (nome != null && senha != null) {
+                if (usuario != null && usuario.getSenha().equals(senha)) {
+                    System.out.println("Credenciais batem.");
+                    FXMLLoader fxmlLoaderTarefas = new FXMLLoader(MainApplication.class.getResource("tarefas.fxml"));
+                    Scene sceneTarefas = new Scene(fxmlLoaderTarefas.load());
+                    TarefasController tarefasController = fxmlLoaderTarefas.getController();
+                    tarefasController.trazDadosUsuario(usuario); // Passando o usuário para o controlador de Tarefas
+                    loginUsuario.clear();
+                    loginSenha.clear();
+                    MainApplication.mudarTela("Tarefas");
+                } else {
+                    System.err.println("Senha e usuário não batem.");
+                }
             } else {
-                System.err.println("Senha e usuário não batem.");
+                System.err.println("Campos nulos! Não é possível fazer login.");
             }
         } catch (Exception e) {
             System.err.println("Algo de errado não está certo: " + e.getMessage());

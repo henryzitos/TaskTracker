@@ -2,11 +2,14 @@ package com.tt.tasktracker;
 
 import com.tt.tasktracker.controller.TarefasController;
 import com.tt.tasktracker.entities.Usuario;
+import com.tt.tasktracker.util.HibernateUtil;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.hibernate.Session;
+
 import java.io.IOException;
 
 public class MainApplication extends Application {
@@ -27,18 +30,22 @@ public class MainApplication extends Application {
         FXMLLoader fxmlLoaderCadastro = new FXMLLoader(MainApplication.class.getResource("cadastro.fxml"));
         Scene sceneCadastro = new Scene(fxmlLoaderCadastro.load());
         cadastroScene = sceneCadastro;
-//        Scene sceneTarefas = new Scene(fxmlLoaderTarefas.load());
-//        tarefasScene = sceneTarefas;
+
+        FXMLLoader fxmlLoaderTarefas = new FXMLLoader(MainApplication.class.getResource("tarefas.fxml"));
+        Scene sceneTarefas = new Scene(fxmlLoaderTarefas.load());
+        tarefasScene = sceneTarefas;
 
 //        FXMLLoader fxmlLoaderPerfil = new FXMLLoader(MainApplication.class.getResource("perfil.fxml"));
 //        Scene scenePerfil = new Scene(fxmlLoaderPerfil.load());
 //        perfilScene = scenePerfil;
 
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        stage.setTitle("Task Tracker");
         stage.setScene(sceneLogin);
         stage.show();
     }
 
-    public static void mudarTela(String tela, Object o) throws IOException {
+    public static void mudarTela(String tela) {
         if (tela.equals("Login")) {
             stagePrincipal.setScene(loginScene);
         }
@@ -48,12 +55,6 @@ public class MainApplication extends Application {
         }
 
         if (tela.equals("Tarefas")){
-            FXMLLoader fxmlLoaderTarefas = new FXMLLoader(MainApplication.class.getResource("tarefas.fxml"));
-            Parent root = fxmlLoaderTarefas.load();
-            TarefasController controller = fxmlLoaderTarefas.getController();
-            controller.initData((Usuario) o);
-            Scene sceneTarefas = new Scene(root);
-            tarefasScene = sceneTarefas;
             stagePrincipal.setScene(tarefasScene);
         }
 

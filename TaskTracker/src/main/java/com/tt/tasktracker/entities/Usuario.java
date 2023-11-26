@@ -21,7 +21,7 @@ public class Usuario {
     @Column
     private String senha;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario", fetch = FetchType.EAGER)
     private List<Tarefa> tarefas;
 
     public Usuario(String user, String email, String senha) {
@@ -33,18 +33,8 @@ public class Usuario {
 
     public Usuario() { }
 
-    @Override
-    public String toString() {
-        return "Usuario{" +
-                "id=" + id +
-                ", user='" + user + '\'' +
-                ", email='" + email + '\'' +
-                ", senha='" + senha + '\'' +
-                '}';
-    }
-
     public void addTarefa(Tarefa tarefa){
-        this.tarefas.add(tarefa);
+        tarefas.add(tarefa);
     }
 
     public Long getId() {
@@ -85,5 +75,15 @@ public class Usuario {
 
     public void setTarefas(List<Tarefa> tarefas) {
         this.tarefas = tarefas;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "id=" + id +
+                ", user='" + user + '\'' +
+                ", email='" + email + '\'' +
+                ", senha='" + senha + '\'' +
+                '}';
     }
 }

@@ -10,6 +10,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import java.io.IOException;
 
@@ -22,7 +23,7 @@ public class CadastroController {
     private Button botaoVoltaLogin;
 
     @FXML
-    private PasswordField cadastroConfirmaSenha;
+    private TextField cadastroUser;
 
     @FXML
     private TextField cadastroEmail;
@@ -31,35 +32,68 @@ public class CadastroController {
     private PasswordField cadastroSenha;
 
     @FXML
-    private TextField cadastroUser;
+    private PasswordField cadastroConfirmaSenha;
 
     @FXML
     void confirmarCadastro(ActionEvent event) {
         String s = cadastroSenha.getText();
-        if (s.equals(cadastroConfirmaSenha.getText())) {
-            Usuario u = new Usuario(cadastroUser.getText(), cadastroEmail.getText(), cadastroConfirmaSenha.getText());
-            System.out.println("Executar adição do usuário no banco.");
-            System.out.println(u);
+        String email = cadastroEmail.getText();
 
-            try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-                Transaction transaction = session.beginTransaction();
-                session.persist(u);
-                transaction.commit();
+        if (s.equals(cadastroConfirmaSenha.getText()) && !email.isEmpty()) {
+            String nome = cadastroUser.getText();
+            boolean userExistente = verificaNomeExistente(nome);
 
-                System.out.println("Sucesso!");
-                MainApplication.mudarTela("Login", null);
-            } catch (Exception e) {
-                System.err.println(e);
-                System.err.println("Algo de errado não está certo. Método salvarEntidade");
-                System.err.println("Registro não bem sucedido, tente novamente");
+            if (userExistente) {
+                System.err.println("Nome de usuário já existente no banco. Cadastro não autorizado.");
+            } else {
+                Usuario u = new Usuario(cadastroUser.getText(), cadastroEmail.getText(), cadastroConfirmaSenha.getText());
+                System.out.println("Executar adição de usuário no banco.");
+                System.out.println(u);
+
+                try (Session sessionCadastrar = HibernateUtil.getSessionFactory().openSession()) {
+                    Transaction transaction = sessionCadastrar.beginTransaction();
+                    sessionCadastrar.persist(u);
+                    transaction.commit();
+
+                    System.out.println("O registro foi realizado com sucesso. Novo usuário registrado.");
+                    cadastroUser.clear();
+                    cadastroEmail.clear();
+                    cadastroSenha.clear();
+                    cadastroConfirmaSenha.clear();
+                    MainApplication.mudarTela("Login");
+                } catch (Exception e) {
+                    System.err.println("Registro não bem sucedido.");
+                    System.err.println("Erro: " + e.getMessage());
+                }
             }
         } else {
-            System.err.println("As senhas não estão iguais.");
+            if (email.isEmpty()) {
+                System.err.println("O campo de e-mail está vazio. Digite um email para prosseguir.");
+            } else {
+                System.err.println("As senhas não estão iguais. Digite as duas senhas de forma igual.");
+            }
+        }
+    }
+
+    private boolean verificaNomeExistente(String nomeUsuario) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            String hql = "SELECT COUNT(u) FROM Usuario u WHERE u.user = :nome";
+            Long count = session.createQuery(hql, Long.class)
+                    .setParameter("nome", nomeUsuario)
+                    .uniqueResult();
+            return count != null && count > 0;
+        } catch (Exception e) {
+            System.err.println("Erro ao verificar usuário existente: " + e.getMessage());
+            return false;
         }
     }
 
     @FXML
-    void voltaTelaLogin(ActionEvent event) throws IOException {
-        MainApplication.mudarTela("Login", null);
+    void voltaTelaLogin(ActionEvent event) {
+        cadastroUser.clear();
+        cadastroEmail.clear();
+        cadastroSenha.clear();
+        cadastroConfirmaSenha.clear();
+        MainApplication.mudarTela("Login");
     }
 }
