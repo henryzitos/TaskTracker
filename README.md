@@ -5,21 +5,19 @@
 ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
 
 ## Descrição
-O projeto TaskTracker será um gerenciador de tarefas, onde o usuário terá ferramentas a sua disposição e liberdade para organizar suas atividades.
+O TaskTracker é um gerenciador de tarefas, onde o usuário terá algumas ferramentas a sua disposição para organizar suas atividades. O projeto é um estudo da biblioteca JavaFX e da API JDBC, onde através das telas do aplicativo manipulamos dados (CRUD) no banco de dados.
 
 
 ## Instalação e uso
-1. Baixe o repositório do projeto. 
+1. Baixe o repositório do projeto.
 2. Extraia o arquivo baixado.
 3. Com o auxílio de um programa compilador de Java, abra o projeto.
 4. Certifique-se de ter o JavaFX instalado no seu computador.
-5. Execute o projeto.
-
-## Desenvolvedores
-**Turma 213-A** | **Equipe:** Arthur Augusto, Felipe Witkowsky, Henriquy Dias, Isabela Crestane
+5. Faça as devidas configurações (se necessário), como a instalação correta dos frameworks e drivers no Maven e a configuração do Hibernate para conexão com banco de dados.
+6. Execute o projeto.
 
 ## Ferramentas usadas
-As ferramentas a seguir são usadas pela equipe e recomendadas ao usuário para ter melhor proveito.
+Essas são as ferramentas usadas para gerenciamento do projeto.
 
 ![IntelliJ](https://img.shields.io/badge/IntelliJ-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white)
 ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
