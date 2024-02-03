@@ -15,10 +15,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -64,12 +64,16 @@ public class TarefasController implements Initializable {
     private TableColumn<Tarefa, String> dataDaTarefa;
 
     private static Usuario usuarioLogado;
-    private static ObservableList<Tarefa> observableListTarefas;
+    private ObservableList<Tarefa> observableListTarefas = FXCollections.observableArrayList(
+    //        new Tarefa("Tarefa 1", "Descrição 1", "Categoria 1", "2022-02-10", usuarioLogado)
+    );
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         String[] tiposDeTarefas = {"Atividade", "Prova", "Trabalho", "Tarefa"};
         tipoDaTarefa.getItems().addAll(tiposDeTarefas);
+
+        apresentarTarefas();
     }
 
     //Traz o usuário para o controller
@@ -78,47 +82,24 @@ public class TarefasController implements Initializable {
         usuarioLogado = usuario;
         System.out.println(usuarioLogado);
 
-        List<Tarefa> listaDeTarefas = usuarioLogado.getTarefas();
-        observableListTarefas = FXCollections.observableArrayList(listaDeTarefas);
+        observableListTarefas = FXCollections.observableArrayList(usuarioLogado.getTarefas());
         System.out.println(observableListTarefas);
+
+        //tabelaPrincipal.setItems(FXCollections.observableList(usuarioLogado.getTarefas()));
 
         apresentarTarefas();
     }
 
-    public void apresentarTarefas(){
-        // Vincular cada propriedade à sua respectiva coluna
-//        nomeDaTarefa.setCellValueFactory(new PropertyValueFactory<>("nome"));
-//        descricaoDaTarefa.setCellValueFactory(new PropertyValueFactory<>("descricao"));
-//        categoriaDaTarefa.setCellValueFactory(new PropertyValueFactory<>("categoria"));
-//        dataDaTarefa.setCellValueFactory(new PropertyValueFactory<>("dataFim"));
-        nomeDaTarefa.setCellValueFactory(cellData -> {
-            Tarefa tarefa = cellData.getValue();
-            StringProperty nome = new SimpleStringProperty(tarefa.getNome());
-            return nome;
-        });
+    public void apresentarTarefas() {
+        nomeDaTarefa.setCellValueFactory(new PropertyValueFactory<Tarefa, String>("nome"));
+        descricaoDaTarefa.setCellValueFactory(new PropertyValueFactory<Tarefa, String>("descricao"));
+        categoriaDaTarefa.setCellValueFactory(new PropertyValueFactory<Tarefa, String>("categoria"));
+        dataDaTarefa.setCellValueFactory(new PropertyValueFactory<Tarefa, String>("dataFim"));
 
-        descricaoDaTarefa.setCellValueFactory(cellData -> {
-            Tarefa tarefa = cellData.getValue();
-            StringProperty descricao = new SimpleStringProperty(tarefa.getDescricao());
-            return descricao;
-        });
-
-        categoriaDaTarefa.setCellValueFactory(cellData -> {
-            Tarefa tarefa = cellData.getValue();
-            StringProperty categoria = new SimpleStringProperty(tarefa.getCategoria());
-            return categoria;
-        });
-
-        dataDaTarefa.setCellValueFactory(cellData -> {
-            Tarefa tarefa = cellData.getValue();
-            StringProperty dataFim = new SimpleStringProperty(tarefa.getDataFim());
-            return dataFim;
-        });
-
-        // Definir a lista de itens na tabela
-        tabelaPrincipal.setItems(observableListTarefas);
+        System.out.println(tabelaPrincipal.getItems());
         tabelaPrincipal.refresh();
     }
+
 
     @FXML
     public void addTarefa(ActionEvent event){
@@ -137,8 +118,10 @@ public class TarefasController implements Initializable {
         usuarioLogado.addTarefa(t);
         transaction.commit();
 
-        tabelaPrincipal.refresh();
+        System.out.println("Tarefa registrada:");
         System.out.println(t);
+
+        apresentarTarefas();
     }
 
     @FXML

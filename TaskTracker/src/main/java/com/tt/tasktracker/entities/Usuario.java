@@ -22,7 +22,7 @@ public class Usuario {
     private String senha;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario", fetch = FetchType.EAGER)
-    private List<Tarefa> tarefas;
+    private List<Tarefa> tarefas = new ArrayList<>();
 
     public Usuario(String user, String email, String senha) {
         this.user = user;
