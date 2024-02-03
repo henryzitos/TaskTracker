@@ -1,6 +1,6 @@
 # TaskTracker
 
-**Projeto de um Gerenciador de Tarefas para o 4° bimestre de LP1 - 2023**
+**Projeto de um Gerenciador de Tarefas para o 4° bimestre de LP1 (Linguagem de Programação 1) - 2023**
 
 ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
 
