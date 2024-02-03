@@ -5,8 +5,10 @@
 ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
 
 ## Descrição
-O TaskTracker é um gerenciador de tarefas, onde o usuário terá algumas ferramentas a sua disposição para organizar suas atividades. O projeto é um estudo da biblioteca JavaFX e da API JDBC, onde através das telas do aplicativo manipulamos dados (CRUD) no banco de dados.
+O TaskTracker é um gerenciador de tarefas, onde o usuário terá algumas ferramentas a sua disposição para organizar suas atividades. O projeto é um estudo da biblioteca JavaFX e da API JDBC, onde montamos telas interativas e interfaces gráficas e manipular dados (CRUD) em um banco de dados.
 
+## Status
+Em desenvolvimento - Desde 11/2023
 
 ## Instalação e uso
 1. Baixe o repositório do projeto.
